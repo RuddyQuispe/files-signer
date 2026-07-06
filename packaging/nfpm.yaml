@@ -1,18 +1,19 @@
 # nfpm config — builds .deb (Ubuntu) and .rpm (Fedora) from the prebuilt binaries.
+# The version comes from the VERSION env var (defaults handled by the Makefile / CI).
 # Usage (from the repo root, after `go build` of both binaries):
-#   nfpm pkg --config packaging/nfpm.yaml --packager deb --target dist/
-#   nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
+#   VERSION=0.1.0 nfpm pkg --config packaging/nfpm.yaml --packager deb --target dist/
+#   VERSION=0.1.0 nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
 name: files-signer
 arch: amd64
 platform: linux
-version: 0.1.0
+version: ${VERSION}
 section: utils
 priority: optional
 maintainer: Ruddy Quispe <development.rquispe@gmail.com>
 description: |
   Sign, verify and extract files with PKCS#7/CMS digital signatures.
   Desktop app and CLI. Cross-platform alternative to XolidoSign.
-homepage: https://github.com/rquispe/files-signer
+homepage: https://github.com/RuddyQuispe/files-signer
 license: MIT
 
 contents:

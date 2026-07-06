@@ -1,0 +1,93 @@
+name: apt-repo
+
+# Builds the .deb on Ubuntu and publishes a signed static APT repository to the
+# gh-pages branch (served by GitHub Pages). Runs on version tags, or manually.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to build (without leading v), e.g. 0.1.0"
+        required: true
+        default: "0.1.0"
+
+permissions:
+  contents: write # needed to push the gh-pages branch
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev \
+            libxinerama-dev libxi-dev libxxf86vm-dev \
+            apt-utils gnupg
+
+      - name: Resolve version
+        id: ver
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            v="${GITHUB_REF_NAME#v}"      # strip leading v from the tag
+          else
+            v="${{ github.event.inputs.version }}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Building version: $v"
+
+      - name: Build binaries
+        env:
+          CGO_ENABLED: "1"
+        run: |
+          go build -o files-signer     ./cmd/files-signer
+          go build -o files-signer-gui ./cmd/files-signer-gui
+
+      - name: Build .deb with nfpm
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
+          mkdir -p dist
+          "$(go env GOPATH)/bin/nfpm" pkg \
+            --config packaging/nfpm.yaml --packager deb --target dist/
+          ls -1 dist/
+
+      - name: Import GPG signing key
+        id: gpg
+        env:
+          APT_GPG_PRIVATE_KEY: ${{ secrets.APT_GPG_PRIVATE_KEY }}
+        run: |
+          echo "$APT_GPG_PRIVATE_KEY" | gpg --batch --import
+          keyid=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/{print $5; exit}')
+          echo "keyid=$keyid" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch existing repo (preserve old versions in the pool)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Build/refresh the signed APT repo
+        run: |
+          mkdir -p site
+          bash packaging/apt/build-repo.sh site "${{ steps.gpg.outputs.keyid }}" dist/*.deb
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages

@@ -107,3 +107,56 @@ dpkg -c  dist/files-signer_*.deb     # Ubuntu
 Para publicar en COPR se usa `packaging/files-signer.spec`. COPR rebuildea desde el código en
 un entorno limpio (mock, sin red), así que conviene versionar las dependencias con
 `go mod vendor` para que compile offline. La app ID es `com.rquispe.filessigner`.
+
+## Repositorio APT (Ubuntu/Debian) por GitHub Pages
+
+Los usuarios instalan con `apt` desde un repo estático hospedado en GitHub Pages. Lo
+construye y firma el workflow `.github/workflows/apt-repo.yml` (corre en un runner Ubuntu:
+compila los binarios, arma el `.deb` con nfpm, genera el índice con `apt-ftparchive` y lo
+firma con GPG). La lógica del repo está en `packaging/apt/build-repo.sh`.
+
+Estructura publicada en la rama `gh-pages`:
+
+```
+KEY.gpg                                          # clave pública para verificar
+pool/main/f/files-signer/*.deb                   # paquetes (se acumulan versiones)
+dists/stable/main/binary-amd64/Packages[.gz]     # índice
+dists/stable/{Release,Release.gpg,InRelease}     # metadatos firmados
+```
+
+### Alta (una sola vez)
+
+1. Crear la clave GPG de firma **sin passphrase** (el CI la usa en modo batch):
+
+   ```sh
+   gpg --batch --quick-generate-key \
+     "files-signer repo <development.rquispe@gmail.com>" default default never
+   KEYID=$(gpg --list-secret-keys --with-colons | awk -F: '/^sec/{print $5; exit}')
+   gpg --armor --export-secret-keys "$KEYID"    # copiar esta salida al secret
+   ```
+
+2. En GitHub → Settings → Secrets and variables → Actions: crear el secret
+   **`APT_GPG_PRIVATE_KEY`** con la clave privada exportada arriba.
+3. Settings → Pages: source = rama `gh-pages` (la crea el primer run del workflow).
+4. El repo debe ser **público** (Pages gratis).
+
+### Publicar una versión
+
+Crear un tag `vX.Y.Z` (o disparar el workflow a mano con el número de versión):
+
+```sh
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+El workflow compila, firma y publica. Después, en una Ubuntu, las instrucciones de
+instalación del [README](README.md#instalar-en-ubuntudebian-apt) deben funcionar y
+`apt upgrade` traer las nuevas versiones.
+
+### Probar el script localmente
+
+`build-repo.sh` necesita herramientas Debian (`apt-utils`), así que en Fedora se corre
+mejor dentro de un contenedor Ubuntu. Chequeo de sintaxis sin ejecutarlo:
+
+```sh
+bash -n packaging/apt/build-repo.sh
+```

@@ -20,6 +20,22 @@ con **app de escritorio** (Fyne) y **CLI**.
 - Selector de archivos **nativo del sistema** en la GUI (con fallback).
 - Salida compatible con OpenSSL y cualquier verificador CMS estándar.
 
+## Instalar en Ubuntu/Debian (apt)
+
+Repositorio APT nativo (sin snap/flatpak), con actualizaciones vía `apt upgrade`:
+
+```sh
+curl -fsSL https://ruddyquispe.github.io/files-signer/KEY.gpg \
+  | sudo gpg --dearmor -o /usr/share/keyrings/files-signer.gpg
+echo "deb [signed-by=/usr/share/keyrings/files-signer.gpg] \
+  https://ruddyquispe.github.io/files-signer stable main" \
+  | sudo tee /etc/apt/sources.list.d/files-signer.list
+sudo apt update && sudo apt install files-signer
+```
+
+Instala el comando `files-signer` (CLI) y la app de escritorio (aparece en el menú).
+Cómo se publica y mantiene ese repo está en **[BUILD.md](BUILD.md)**.
+
 ## Instalación / compilación
 
 CLI (Go puro, binario estático, sin dependencias):

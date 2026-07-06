@@ -40,12 +40,12 @@ nfpm:
 ## deb: genera el paquete .deb (Ubuntu) en dist/
 deb: build nfpm
 	@mkdir -p dist
-	$(NFPM) pkg --config packaging/nfpm.yaml --packager deb --target dist/
+	VERSION=$(VERSION) $(NFPM) pkg --config packaging/nfpm.yaml --packager deb --target dist/
 
 ## rpm: genera el paquete .rpm (Fedora) en dist/
 rpm: build nfpm
 	@mkdir -p dist
-	$(NFPM) pkg --config packaging/nfpm.yaml --packager rpm --target dist/
+	VERSION=$(VERSION) $(NFPM) pkg --config packaging/nfpm.yaml --packager rpm --target dist/
 
 ## packages: genera .deb y .rpm
 packages: deb rpm

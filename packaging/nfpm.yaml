@@ -2,7 +2,7 @@
 # Usage (from the repo root, after `go build` of both binaries):
 #   nfpm pkg --config packaging/nfpm.yaml --packager deb --target dist/
 #   nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
-name: files-sign
+name: files-signer
 arch: amd64
 platform: linux
 version: 0.1.0
@@ -12,26 +12,26 @@ maintainer: Ruddy Quispe <development.rquispe@gmail.com>
 description: |
   Sign, verify and extract files with PKCS#7/CMS digital signatures.
   Desktop app and CLI. Cross-platform alternative to XolidoSign.
-homepage: https://github.com/rquispe/files-sign
+homepage: https://github.com/rquispe/files-signer
 license: MIT
 
 contents:
-  - src: ./files-sign
-    dst: /usr/bin/files-sign
-  - src: ./files-sign-gui
-    dst: /usr/bin/files-sign-gui
-  - src: ./packaging/com.rquispe.filessign.desktop
-    dst: /usr/share/applications/com.rquispe.filessign.desktop
-  - src: ./packaging/com.rquispe.filessign.metainfo.xml
-    dst: /usr/share/metainfo/com.rquispe.filessign.metainfo.xml
+  - src: ./files-signer
+    dst: /usr/bin/files-signer
+  - src: ./files-signer-gui
+    dst: /usr/bin/files-signer-gui
+  - src: ./packaging/com.rquispe.filessigner.desktop
+    dst: /usr/share/applications/com.rquispe.filessigner.desktop
+  - src: ./packaging/com.rquispe.filessigner.metainfo.xml
+    dst: /usr/share/metainfo/com.rquispe.filessigner.metainfo.xml
   - src: ./assets/icon-512.png
-    dst: /usr/share/icons/hicolor/512x512/apps/com.rquispe.filessign.png
+    dst: /usr/share/icons/hicolor/512x512/apps/com.rquispe.filessigner.png
   - src: ./assets/icon-256.png
-    dst: /usr/share/icons/hicolor/256x256/apps/com.rquispe.filessign.png
+    dst: /usr/share/icons/hicolor/256x256/apps/com.rquispe.filessigner.png
   - src: ./assets/icon-128.png
-    dst: /usr/share/icons/hicolor/128x128/apps/com.rquispe.filessign.png
+    dst: /usr/share/icons/hicolor/128x128/apps/com.rquispe.filessigner.png
   - src: ./assets/icon.svg
-    dst: /usr/share/icons/hicolor/scalable/apps/com.rquispe.filessign.svg
+    dst: /usr/share/icons/hicolor/scalable/apps/com.rquispe.filessigner.svg
 
 overrides:
   rpm:

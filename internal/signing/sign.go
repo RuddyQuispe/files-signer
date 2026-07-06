@@ -3,7 +3,7 @@ package signing
 import (
 	"fmt"
 
-	"files-sign/internal/keystore"
+	"files-signer/internal/keystore"
 
 	"github.com/digitorus/pkcs7"
 )

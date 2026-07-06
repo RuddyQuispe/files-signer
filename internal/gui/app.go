@@ -18,9 +18,9 @@ const prefTourCompleted = "tour_completed"
 
 // Run starts the desktop application.
 func Run() {
-	a := app.NewWithID("com.rquispe.filessign")
+	a := app.NewWithID("com.rquispe.filessigner")
 	a.SetIcon(fyne.NewStaticResource("icon.png", iconPNG))
-	w := a.NewWindow("files-sign — Firmador y verificador de archivos")
+	w := a.NewWindow("files-signer — Firmador y verificador de archivos")
 	w.Resize(fyne.NewSize(700, 640))
 
 	signContent, signHi := newSignTab(w)
@@ -36,7 +36,7 @@ func Run() {
 	help := widget.NewButtonWithIcon("¿Cómo se usa?", theme.HelpIcon(), func() {
 		startTour(w, tabs, targets, nil)
 	})
-	title := widget.NewLabelWithStyle("files-sign", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
+	title := widget.NewLabelWithStyle("files-signer", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
 	header := container.NewBorder(nil, nil, title, help)
 
 	w.SetContent(container.NewBorder(container.NewPadded(header), nil, nil, nil, tabs))
@@ -59,7 +59,7 @@ func Run() {
 func buildTourTargets(signHi, verifyHi []highlight) []tourTarget {
 	targets := []tourTarget{
 		{tabIndex: -1, highlight: highlight{
-			title: "Bienvenido a files-sign 👋",
+			title: "Bienvenido a files-signer 👋",
 			body:  "Te muestro en pocos pasos cómo firmar y verificar archivos. Podés repetir esta guía cuando quieras con el botón «¿Cómo se usa?».",
 		}},
 	}

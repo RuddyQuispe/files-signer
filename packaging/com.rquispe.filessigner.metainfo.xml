@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.rquispe.filessigner</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>files-signer</name>
+  <summary>Sign, verify and extract files with digital signatures</summary>
+
+  <url type="homepage">https://github.com/rquispe/files-signer</url>
+  <url type="bugtracker">https://github.com/rquispe/files-signer/issues</url>
+
+  <description>
+    <p>
+      files-signer signs and verifies files of any type (PDF, YAML, JAR, ZIP,
+      Dockerfiles, plain text, and so on) using standard PKCS#7/CMS digital
+      signatures and a PEM certificate. It is a cross-platform alternative to
+      XolidoSign that runs on Windows, Linux and macOS, with both a desktop app
+      and a command-line interface.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Attached (.p7m) and detached (.p7s) signatures.</li>
+      <li>Verify integrity and signer identity, with optional trust-chain validation.</li>
+      <li>Recover the original file embedded in an attached (.p7m) signature.</li>
+      <li>Password-protected PEM keys and batch signing.</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">com.rquispe.filessigner.desktop</launchable>
+
+  <categories>
+    <category>Utility</category>
+    <category>Security</category>
+  </categories>
+
+  <keywords>
+    <keyword>sign</keyword>
+    <keyword>signature</keyword>
+    <keyword>PKCS#7</keyword>
+    <keyword>CMS</keyword>
+    <keyword>verify</keyword>
+    <keyword>certificate</keyword>
+  </keywords>
+
+  <developer id="io.github.rquispe">
+    <name>Ruddy Quispe</name>
+  </developer>
+
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.1.0" date="2026-07-03">
+      <description>
+        <p>First release: CLI + desktop app to sign, verify and extract files.</p>
+      </description>
+    </release>
+  </releases>
+</component>

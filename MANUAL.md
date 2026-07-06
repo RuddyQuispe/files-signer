@@ -1,4 +1,4 @@
-# Manual de usuario — files-sign
+# Manual de usuario — files-signer
 
 Guía simple para firmar y verificar archivos. No necesitás saber de criptografía.
 
@@ -34,7 +34,7 @@ Podés generar los dos, o solo el que necesites. La extensión no cambia la vali
 
 ## Antes de empezar: qué necesitás
 
-1. El **programa** `files-sign` (el binario para tu sistema operativo).
+1. El **programa** `files-signer` (el binario para tu sistema operativo).
 2. Tu **certificado** y tu **clave privada** en formato PEM (`.pem`).
 3. La **contraseña** de tu clave (si tiene).
 
@@ -44,7 +44,7 @@ Podés generar los dos, o solo el que necesites. La extensión no cambia la vali
 
 ## Usar la app de escritorio (ventana)
 
-Abrí `files-sign-gui`. La primera vez, una **guía interactiva** te resalta paso a paso qué hacer
+Abrí `files-signer-gui`. La primera vez, una **guía interactiva** te resalta paso a paso qué hacer
 (podés repetirla con el botón «¿Cómo se usa?»).
 
 - **Pestaña Firmar**: elegí tu certificado con «Examinar» (se abre el selector de archivos nativo
@@ -63,7 +63,7 @@ El resto de este manual explica la versión de **terminal** (útil para automati
 ### Caso simple: un archivo, los dos tipos de firma
 
 ```
-files-sign sign --pem certificado.pem --password TU_CLAVE documento.pdf
+files-signer sign --pem certificado.pem --password TU_CLAVE documento.pdf
 ```
 
 Esto crea `documento.pdf.p7m` (adjunta) y `documento.pdf.p7s` (separada) al lado del original.
@@ -72,10 +72,10 @@ Esto crea `documento.pdf.p7m` (adjunta) y `documento.pdf.p7s` (separada) al lado
 
 ```
 # Solo la firma separada (la chica)
-files-sign sign --pem certificado.pem --password TU_CLAVE --out detached documento.pdf
+files-signer sign --pem certificado.pem --password TU_CLAVE --out detached documento.pdf
 
 # Solo la firma adjunta (la que contiene el archivo)
-files-sign sign --pem certificado.pem --password TU_CLAVE --out attached documento.pdf
+files-signer sign --pem certificado.pem --password TU_CLAVE --out attached documento.pdf
 ```
 
 Opciones de `--out`: `both` (las dos, por defecto), `attached`, `detached`.
@@ -83,19 +83,19 @@ Opciones de `--out`: `both` (las dos, por defecto), `attached`, `detached`.
 ### Firmar varios archivos de una vez
 
 ```
-files-sign sign --pem certificado.pem --password TU_CLAVE app.yaml Dockerfile release.zip
+files-signer sign --pem certificado.pem --password TU_CLAVE app.yaml Dockerfile release.zip
 ```
 
 ### Si el certificado y la clave están en archivos separados
 
 ```
-files-sign sign --pem certificado.pem --key clave.pem --password TU_CLAVE documento.pdf
+files-signer sign --pem certificado.pem --key clave.pem --password TU_CLAVE documento.pdf
 ```
 
 ### Guardar las firmas en otra carpeta
 
 ```
-files-sign sign --pem certificado.pem --password TU_CLAVE --outdir firmas/ documento.pdf
+files-signer sign --pem certificado.pem --password TU_CLAVE --outdir firmas/ documento.pdf
 ```
 
 ### No querés escribir la contraseña en el comando
@@ -103,7 +103,7 @@ files-sign sign --pem certificado.pem --password TU_CLAVE --outdir firmas/ docum
 Usá `--password-stdin` y el programa la pide por entrada estándar (no queda en el historial):
 
 ```
-echo "TU_CLAVE" | files-sign sign --pem certificado.pem --password-stdin documento.pdf
+echo "TU_CLAVE" | files-signer sign --pem certificado.pem --password-stdin documento.pdf
 ```
 
 ---
@@ -115,7 +115,7 @@ echo "TU_CLAVE" | files-sign sign --pem certificado.pem --password-stdin documen
 El archivo ya está adentro, así que solo pasás la firma:
 
 ```
-files-sign verify documento.pdf.p7m
+files-signer verify documento.pdf.p7m
 ```
 
 ### Verificar una firma separada
@@ -123,7 +123,7 @@ files-sign verify documento.pdf.p7m
 Necesitás el archivo original **y** la firma:
 
 ```
-files-sign verify documento.pdf --sig documento.pdf.p7s
+files-signer verify documento.pdf --sig documento.pdf.p7s
 ```
 
 ### Recuperar el archivo original desde una firma adjunta (`.p7m`)
@@ -131,7 +131,7 @@ files-sign verify documento.pdf --sig documento.pdf.p7s
 Una firma adjunta lleva el archivo adentro. Podés recuperarlo intacto (además de verificarlo):
 
 ```
-files-sign extract documento.pdf.p7m -o documento.pdf
+files-signer extract documento.pdf.p7m -o documento.pdf
 ```
 
 Por defecto, si no ponés `-o`, guarda quitando el `.p7m` del nombre. No sobrescribe un archivo
@@ -144,7 +144,7 @@ Si además querés validar que el certificado viene de una autoridad de confianz
 agregá `--trust` con el archivo de la CA:
 
 ```
-files-sign verify documento.pdf --sig documento.pdf.p7s --trust --ca autoridad.pem
+files-signer verify documento.pdf --sig documento.pdf.p7s --trust --ca autoridad.pem
 ```
 
 ---

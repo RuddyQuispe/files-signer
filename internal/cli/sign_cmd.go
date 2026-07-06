@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"files-sign/internal/keystore"
-	"files-sign/internal/signing"
+	"files-signer/internal/keystore"
+	"files-signer/internal/signing"
 )
 
 func signCmd(args []string) int {

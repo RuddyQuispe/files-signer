@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"files-sign/internal/keystore"
+	"files-signer/internal/keystore"
 )
 
 // newTestMaterial builds an in-memory self-signed certificate + key so tests
@@ -24,7 +24,7 @@ func newTestMaterial(t *testing.T) (*keystore.Material, *x509.Certificate) {
 	}
 	tmpl := &x509.Certificate{
 		SerialNumber:          big.NewInt(1),
-		Subject:               pkix.Name{CommonName: "files-sign test"},
+		Subject:               pkix.Name{CommonName: "files-signer test"},
 		NotBefore:             time.Now().Add(-time.Hour),
 		NotAfter:              time.Now().Add(time.Hour),
 		KeyUsage:              x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,

@@ -1,7 +1,7 @@
 # Build output
-/files-sign
-/files-sign-gui
-/files-sign.exe
+/files-signer
+/files-signer-gui
+/files-signer.exe
 /dist/
 
 # Signing material and generated signatures (never commit these)

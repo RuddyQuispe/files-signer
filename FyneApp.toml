@@ -1,6 +1,6 @@
 [Details]
-Name = "files-sign"
-ID = "com.rquispe.filessign"
+Name = "files-signer"
+ID = "com.rquispe.filessigner"
 Version = "0.1.0"
 Build = 1
 Icon = "assets/icon.png"

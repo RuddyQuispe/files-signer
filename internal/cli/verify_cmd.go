@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"files-sign/internal/signing"
+	"files-signer/internal/signing"
 )
 
 func verifyCmd(args []string) int {

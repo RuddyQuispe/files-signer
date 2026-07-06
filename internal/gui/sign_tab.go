@@ -12,8 +12,8 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 
-	"files-sign/internal/keystore"
-	"files-sign/internal/signing"
+	"files-signer/internal/keystore"
+	"files-signer/internal/signing"
 )
 
 const (

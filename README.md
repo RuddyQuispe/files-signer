@@ -1,4 +1,4 @@
-# files-sign
+# files-signer
 
 Firmador y verificador de archivos multiplataforma basado en **PKCS#7 / CMS**.
 Firma y verifica **cualquier** tipo de archivo (PDF, YAML, JAR, ZIP, sin extensión, etc.)
@@ -25,18 +25,18 @@ con **app de escritorio** (Fyne) y **CLI**.
 CLI (Go puro, binario estático, sin dependencias):
 
 ```sh
-go build -o files-sign ./cmd/files-sign
+go build -o files-signer ./cmd/files-signer
 
 # Cross-compile
-CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -o dist/files-sign-linux      ./cmd/files-sign
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o dist/files-sign.exe         ./cmd/files-sign
-CGO_ENABLED=0 GOOS=darwin  GOARCH=arm64 go build -o dist/files-sign-macos-arm64 ./cmd/files-sign
+CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -o dist/files-signer-linux      ./cmd/files-signer
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o dist/files-signer.exe         ./cmd/files-signer
+CGO_ENABLED=0 GOOS=darwin  GOARCH=arm64 go build -o dist/files-signer-macos-arm64 ./cmd/files-signer
 ```
 
 App de escritorio (Fyne, requiere toolchain C + libs gráficas para compilar):
 
 ```sh
-go build -o files-sign-gui ./cmd/files-sign-gui
+go build -o files-signer-gui ./cmd/files-signer-gui
 ```
 
 > En Linux la compilación de la GUI necesita las libs de desarrollo de OpenGL/X11
@@ -48,16 +48,16 @@ go build -o files-sign-gui ./cmd/files-sign-gui
 
 ```sh
 # Firmar (genera .p7m y .p7s)
-files-sign sign --pem cert.pem --password CLAVE documento.pdf
+files-signer sign --pem cert.pem --password CLAVE documento.pdf
 
 # Verificar una firma adjunta
-files-sign verify documento.pdf.p7m
+files-signer verify documento.pdf.p7m
 
 # Verificar una firma separada
-files-sign verify documento.pdf --sig documento.pdf.p7s
+files-signer verify documento.pdf --sig documento.pdf.p7s
 
 # Recuperar el archivo original desde una firma adjunta (.p7m)
-files-sign extract documento.pdf.p7m -o documento.pdf
+files-signer extract documento.pdf.p7m -o documento.pdf
 ```
 
 Referencia completa en el **[Manual de usuario](MANUAL.md)**.
@@ -69,8 +69,8 @@ se carga la clave. Las interfaces (CLI y GUI) envuelven el mismo dominio.
 
 ```
 cmd/
-  files-sign/         Entry point CLI
-  files-sign-gui/     Entry point app de escritorio
+  files-signer/         Entry point CLI
+  files-signer-gui/     Entry point app de escritorio
 internal/
   signing/            DOMINIO: firma y verificación sobre bytes (PKCS#7/CMS)
     sign.go             Signer.Sign (attached / detached)
@@ -117,8 +117,8 @@ make packages   # genera dist/*.deb y dist/*.rpm
 **`.deb` (Ubuntu) y `.rpm` (Fedora) con [nfpm](https://nfpm.goreleaser.com):**
 
 ```sh
-go build -o files-sign ./cmd/files-sign
-go build -o files-sign-gui ./cmd/files-sign-gui
+go build -o files-signer ./cmd/files-signer
+go build -o files-signer-gui ./cmd/files-signer-gui
 nfpm pkg --config packaging/nfpm.yaml --packager deb --target dist/
 nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
 ```
@@ -126,8 +126,8 @@ nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
 Instala binarios en `/usr/bin`, el `.desktop` en `/usr/share/applications`, iconos en
 `hicolor` y el metainfo en `/usr/share/metainfo` → la app aparece en el menú con su icono.
 
-**COPR (Fedora):** `packaging/files-sign.spec`. Para builds offline de mock, versioná las
-dependencias con `go mod vendor`. La app ID es `com.rquispe.filessign`; para Flathub más
+**COPR (Fedora):** `packaging/files-signer.spec`. Para builds offline de mock, versioná las
+dependencias con `go mod vendor`. La app ID es `com.rquispe.filessigner`; para Flathub más
 adelante hará falta un ID basado en un dominio/GitHub propio.
 
 ## Desarrollo
@@ -136,6 +136,10 @@ adelante hará falta un ID basado en un dominio/GitHub propio.
 go test ./...
 go build ./...
 ```
+
+¿Venís de otro lenguaje y no conocés el ecosistema Go? La
+**[Guía de desarrollo](DEVELOPMENT.md)** explica cada comando (módulos, `go run` vs
+`go build`, `./...`, cómo funcionan los tests) aplicado a este repo.
 
 ## Roadmap
 

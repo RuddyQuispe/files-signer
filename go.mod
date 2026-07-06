@@ -1,4 +1,4 @@
-module files-sign
+module files-signer
 
 go 1.26.4
 

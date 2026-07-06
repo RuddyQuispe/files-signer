@@ -1,4 +1,4 @@
-# files-sign — build & packaging
+# files-signer — build & packaging
 # Leé cada objetivo y corré:  make <objetivo>
 # Objetivo por defecto: "make" muestra esta ayuda.
 
@@ -10,7 +10,7 @@ NFPM    ?= $(shell go env GOPATH)/bin/nfpm
 
 ## help: muestra esta ayuda
 help:
-	@echo "files-sign — objetivos disponibles:"
+	@echo "files-signer — objetivos disponibles:"
 	@grep -E '^## ' $(MAKEFILE_LIST) | sed 's/## /  /'
 
 ## icons: genera los PNG desde assets/icon.svg (necesita ImageMagick)
@@ -24,9 +24,9 @@ icons:
 
 ## build: compila los dos binarios (CLI y GUI)
 build:
-	go build -o files-sign ./cmd/files-sign
-	go build -o files-sign-gui ./cmd/files-sign-gui
-	@echo "OK: files-sign y files-sign-gui"
+	go build -o files-signer ./cmd/files-signer
+	go build -o files-signer-gui ./cmd/files-signer-gui
+	@echo "OK: files-signer y files-signer-gui"
 
 ## test: corre los tests
 test:
@@ -57,7 +57,7 @@ all: icons build test packages
 
 ## clean: borra binarios y paquetes generados
 clean:
-	rm -f files-sign files-sign-gui
+	rm -f files-signer files-signer-gui
 	rm -rf dist
 
 .PHONY: help icons build test nfpm deb rpm packages all clean

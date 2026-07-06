@@ -13,7 +13,7 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 
-	"files-sign/internal/signing"
+	"files-signer/internal/signing"
 )
 
 func newVerifyTab(win fyne.Window) (fyne.CanvasObject, []highlight) {

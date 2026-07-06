@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"files-sign/internal/signing"
+	"files-signer/internal/signing"
 )
 
 func extractCmd(args []string) int {

@@ -1,6 +1,6 @@
 # Guía de build y empaquetado
 
-Cómo construir files-sign y generar los paquetes `.deb` (Ubuntu) y `.rpm` (Fedora),
+Cómo construir files-signer y generar los paquetes `.deb` (Ubuntu) y `.rpm` (Fedora),
 paso a paso, para hacerlo vos a mano. Todo está automatizado en el `Makefile`; acá se
 explica qué hace cada paso.
 
@@ -37,7 +37,7 @@ go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
 ```sh
 make            # muestra la ayuda con todos los objetivos
 make icons      # genera los PNG desde assets/icon.svg
-make build      # compila files-sign y files-sign-gui
+make build      # compila files-signer y files-signer-gui
 make test       # corre los tests
 make packages   # genera dist/*.deb y dist/*.rpm
 make all        # todo lo anterior
@@ -61,8 +61,8 @@ cp assets/icon-512.png internal/gui/icon.png    # este lo embebe la GUI (go:embe
 ### 2. Compilar los binarios
 
 ```sh
-go build -o files-sign     ./cmd/files-sign      # CLI
-go build -o files-sign-gui ./cmd/files-sign-gui  # app de escritorio
+go build -o files-signer     ./cmd/files-signer      # CLI
+go build -o files-signer-gui ./cmd/files-signer-gui  # app de escritorio
 ```
 
 ### 3. Generar los paquetes
@@ -74,8 +74,8 @@ nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/   # Fedora
 ```
 
 Quedan en `dist/`:
-- `files-sign_<version>_amd64.deb`
-- `files-sign-<version>-1.x86_64.rpm`
+- `files-signer_<version>_amd64.deb`
+- `files-signer-<version>-1.x86_64.rpm`
 
 Instalan: binarios en `/usr/bin`, `.desktop` en `/usr/share/applications`, íconos en
 `/usr/share/icons/hicolor/...`, metainfo en `/usr/share/metainfo`. Con eso la app aparece
@@ -86,24 +86,24 @@ en el menú de aplicaciones con su ícono.
 Fedora:
 
 ```sh
-sudo dnf install ./dist/files-sign-*.x86_64.rpm
+sudo dnf install ./dist/files-signer-*.x86_64.rpm
 ```
 
 Ubuntu:
 
 ```sh
-sudo apt install ./dist/files-sign_*_amd64.deb
+sudo apt install ./dist/files-signer_*_amd64.deb
 ```
 
 ## Ver el contenido de un paquete (sin instalar)
 
 ```sh
-rpm -qlp dist/files-sign-*.rpm     # Fedora
-dpkg -c  dist/files-sign_*.deb     # Ubuntu
+rpm -qlp dist/files-signer-*.rpm     # Fedora
+dpkg -c  dist/files-signer_*.deb     # Ubuntu
 ```
 
 ## COPR (repo de Fedora)
 
-Para publicar en COPR se usa `packaging/files-sign.spec`. COPR rebuildea desde el código en
+Para publicar en COPR se usa `packaging/files-signer.spec`. COPR rebuildea desde el código en
 un entorno limpio (mock, sin red), así que conviene versionar las dependencias con
-`go mod vendor` para que compile offline. La app ID es `com.rquispe.filessign`.
+`go mod vendor` para que compile offline. La app ID es `com.rquispe.filessigner`.

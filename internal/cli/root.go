@@ -7,14 +7,14 @@ import (
 	"os"
 )
 
-const usage = `files-sign — sign, verify and extract files with PKCS#7/CMS
+const usage = `files-signer — sign, verify and extract files with PKCS#7/CMS
 
 Usage:
-  files-sign sign    [flags] <file...>
-  files-sign verify  [flags] <file>
-  files-sign extract [flags] <file.p7m>
+  files-signer sign    [flags] <file...>
+  files-signer verify  [flags] <file>
+  files-signer extract [flags] <file.p7m>
 
-Run "files-sign sign -h", "files-sign verify -h" or "files-sign extract -h" for command flags.`
+Run "files-signer sign -h", "files-signer verify -h" or "files-signer extract -h" for command flags.`
 
 // Run dispatches a subcommand and returns the process exit code.
 func Run(args []string) int {

@@ -1,0 +1,14 @@
+# Build output
+/files-sign
+/files-sign-gui
+/files-sign.exe
+/dist/
+
+# Signing material and generated signatures (never commit these)
+*.pem
+*.key
+*.p7b
+*.p7m
+*.p7s
+*.pfx
+*.p12

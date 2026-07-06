@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=files-sign
+GenericName=File Signer
+GenericName[es]=Firmador de archivos
+Comment=Sign, verify and extract files with digital signatures (PKCS#7/CMS)
+Comment[es]=Firmá, verificá y extraé archivos con firmas digitales (PKCS#7/CMS)
+Exec=files-sign-gui %F
+Icon=com.rquispe.filessign
+Terminal=false
+Categories=Utility;Security;
+Keywords=sign;signature;pkcs7;cms;verify;p7m;p7s;certificate;
+StartupNotify=true

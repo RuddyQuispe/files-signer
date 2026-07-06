@@ -1,0 +1,46 @@
+# nfpm config — builds .deb (Ubuntu) and .rpm (Fedora) from the prebuilt binaries.
+# Usage (from the repo root, after `go build` of both binaries):
+#   nfpm pkg --config packaging/nfpm.yaml --packager deb --target dist/
+#   nfpm pkg --config packaging/nfpm.yaml --packager rpm --target dist/
+name: files-sign
+arch: amd64
+platform: linux
+version: 0.1.0
+section: utils
+priority: optional
+maintainer: Ruddy Quispe <development.rquispe@gmail.com>
+description: |
+  Sign, verify and extract files with PKCS#7/CMS digital signatures.
+  Desktop app and CLI. Cross-platform alternative to XolidoSign.
+homepage: https://github.com/rquispe/files-sign
+license: MIT
+
+contents:
+  - src: ./files-sign
+    dst: /usr/bin/files-sign
+  - src: ./files-sign-gui
+    dst: /usr/bin/files-sign-gui
+  - src: ./packaging/com.rquispe.filessign.desktop
+    dst: /usr/share/applications/com.rquispe.filessign.desktop
+  - src: ./packaging/com.rquispe.filessign.metainfo.xml
+    dst: /usr/share/metainfo/com.rquispe.filessign.metainfo.xml
+  - src: ./assets/icon-512.png
+    dst: /usr/share/icons/hicolor/512x512/apps/com.rquispe.filessign.png
+  - src: ./assets/icon-256.png
+    dst: /usr/share/icons/hicolor/256x256/apps/com.rquispe.filessign.png
+  - src: ./assets/icon-128.png
+    dst: /usr/share/icons/hicolor/128x128/apps/com.rquispe.filessign.png
+  - src: ./assets/icon.svg
+    dst: /usr/share/icons/hicolor/scalable/apps/com.rquispe.filessign.svg
+
+overrides:
+  rpm:
+    depends:
+      - mesa-libGL
+      - libX11
+      - zenity
+  deb:
+    depends:
+      - libgl1
+      - libx11-6
+      - zenity

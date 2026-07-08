@@ -1,0 +1,23 @@
+Architectures: amd64
+Codename: stable
+Components: main
+Date: Wed, 08 Jul 2026 03:28:39 +0000
+Label: files-signer
+Origin: files-signer
+Suite: stable
+MD5Sum:
+ 569bfd9fc498732509b0152788628c93              148 Release
+ e027b66527f6ac49be62e0b6d24a0aff              780 main/binary-amd64/Packages
+ 1f8e2cdd5d7fec228b38884f711578ca              561 main/binary-amd64/Packages.gz
+SHA1:
+ 423db02b35c9589876c63b9b80558726bf44c8c1              148 Release
+ 21ad037e21050b82eade3c201ced4749812a8405              780 main/binary-amd64/Packages
+ b6f4abb84762a163e4146ed191f9905ddfdcbc5b              561 main/binary-amd64/Packages.gz
+SHA256:
+ 727968df8908688446caeff82e3260a5057c9cfb0d0bf65f3f1eb2da22e46c86              148 Release
+ d76592e0dcb511e30e1188b8431d0b7d7ff9191d9591549717d6ab7a74b925f4              780 main/binary-amd64/Packages
+ ba8cf3a1dbb41baf53094829a745584a6ee6ef8eae91245727cd98c980606fd4              561 main/binary-amd64/Packages.gz
+SHA512:
+ 47265c7dd31d5e35aa38a053ab323aad96cd0ad824f70f3088488c7a80f3db55ae0556b9e21f4ffb1ec44bccc0ad0fa87f3a34c54e7cadac61542388004f84e4              148 Release
+ 5adc5b3958adebba27abf74c556d2052a6e216a2d7f317f12cf7391a85389ac8ba318d2bc977a725f917817ac879873163299bd2768101e98525126be50d34c4              780 main/binary-amd64/Packages
+ 798453eedbdfbcff8916d8cb0d78e5e5d65f8ed5b6c58ace732e8eaa954e800d4cfe51683a3e1f3d0d1f800f7a0fd2dd1b73fa72025aa293b42e9953ce6bc496              561 main/binary-amd64/Packages.gz

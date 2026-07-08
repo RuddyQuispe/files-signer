@@ -1,0 +1,18 @@
+Package: files-signer
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: utils
+Maintainer: Ruddy Quispe <development.rquispe@gmail.com>
+Installed-Size: 40449
+Depends: libgl1, libx11-6, zenity
+Filename: pool/main/f/files-signer/files-signer_0.1.0_amd64.deb
+Size: 22782746
+MD5sum: 0fb943f6c369e82e4013e34770b9a952
+SHA1: 543d1ffe1886b6feef8de3e45bc3795c83062fc9
+SHA256: b642ae31e9836e61c320c7c5ada1f5f5c5d69eafe95a66b59523d550f7e7a62c
+SHA512: 2b4a990c48260b5fec894c43a2cc346b2d6bf3632b9cfd0ed06636df8203e36981fb31b4be1cab10286625d867fce066f0decc9d14e94ac54f425197af9a7766
+Homepage: https://github.com/RuddyQuispe/files-signer
+Description: Sign, verify and extract files with PKCS#7/CMS digital signatures.
+ Desktop app and CLI. Cross-platform alternative to XolidoSign.
+
